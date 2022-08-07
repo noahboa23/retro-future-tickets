@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Available Theaters</title>
+        <style type="text/css">
+         table.people td {
+             padding: 20px;
+             text-align:center;
+             font-family: Arial, Verdana, sans-serif;
+             border: 2px solid #000; 
+             background-color: white;    
+             color: #BB0000;    
+             border-bottom: 3px solid #000;
+         }
+         table.center {
+           margin-left: auto; 
+           margin-right: auto;
+         }
+         body   
+            {  
+            height: 125vh;  
+            margin-top: 80px;  
+            padding: 30px;  
+            background-size: cover;  
+            font-family: sans-serif;  
+            }  
+            header {  
+            background-color: #24262f;  
+            position: fixed;  
+            left: 0;  
+            right: 0;  
+            top: 5px;  
+            height: 50px;  
+            display: flex;  
+            align-items: center;  
+            box-shadow: 0 0 25px 0 black;  
+            }  
+            header * {  
+            display: inline;  
+            }  
+            header li {  
+            margin: 20px;  
+            }  
+            header li a {  
+            color: white;  
+            text-decoration: none;  
+            }
+        </style>
+    </h:head>
+    <h:body style="background-color:#792937;">
+        <header>  
+            <nav>  
+                <ul>  
+                    <li>
+                        <h:link value="Home" outcome="index" />
+                    </li>  
+                    <li>
+                        <h:link value="Zip Search" outcome="MainPage" />
+                    </li>  
+                </ul>  
+            </nav>  
+        </header>
+        
+        <!-- DISPLAY THE ZIP CODE ENTERED IN BY THE USER IN THE PREVIOUS PAGE -->
+        <h2 style="color:white;font-family:gordita,Helvetica,sans-serif;text-align:center;font-size:300%;">
+            Theaters for #{showThingsBean.zip}
+        </h2>
+        <h:graphicImage style="height:200px;width:150px;display:block;margin:0px auto;" 
+                        value="/resources/images/popcorn.png" 
+                        alt="Image not found"/>
+        <br /> <br /> <br /> <br /> <br /> <br />
+        <f:view>
+            <h:form>
+                <!-- POPULATE OUR DATA TABLE WITH THE MOVIE THEATERS
+                        LIST THAT WE QUERY IN OUR METHOD-->
+                <h:dataTable styleClass="center people"
+                             value="#{showThingsBean.theatersList}" var ="theater">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Movie Theater" 
+                                          style="color:white;font-family:gordita,Helvetica,sans-serif;" />
+                        </f:facet>
+                        <!-- IF THE USER CLICKS ON THE IMAGE, IT WILL SET THE MOVIE THEATER
+                                CLICKED ON AND DISPLAY THE MOVIES ASSOCIATED WITH
+                                    THAT MOVIE THEATER-->
+                        <h:commandLink action="#{showThingsBean.showMoviesPage(theater)}">
+                            <h:graphicImage style="height:200px;width:400px;" 
+                                            value="/resources/images/#{theater}.jpg" 
+                                            alt="Image not found"/>
+                        </h:commandLink>
+                        
+                        <br /> <br />
+                        <!-- DISPLAY THE MOVIE THEATER NAME, IF CLICKED ON
+                        IT WILL SET THE VARIABLE AND RETURN THE MOVIES PAGE-->
+                        <h:commandLink value ="#{theater}" 
+                                       action="#{showThingsBean.showMoviesPage(theater)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Checkout</title>
+        <style type="text/css">
+             table.people td {
+             padding: 20px;
+             text-align:center;
+             font-family: Arial, Verdana, sans-serif;
+             border: 2px solid #000; 
+             background-color: white;    
+             color: #BB0000;    
+             border-bottom: 3px solid #000;
+         }
+         table.center {
+           margin-left: auto; 
+           margin-right: auto;
+         }
+         body   
+            {  
+            height: 125vh;  
+            margin-top: 80px;  
+            padding: 30px;  
+            background-size: cover;  
+            font-family: sans-serif;  
+            }  
+            header {  
+            background-color: #24262f;  
+            position: fixed;  
+            left: 0;  
+            right: 0;  
+            top: 5px;  
+            height: 50px;  
+            display: flex;  
+            align-items: center;  
+            box-shadow: 0 0 25px 0 black;  
+            }  
+            header * {  
+            display: inline;  
+            }  
+            header li {  
+            margin: 20px;  
+            }  
+            header li a {  
+            color: white;  
+            text-decoration: none;  
+            }
+        </style>
+    </h:head>
+    <h:body style="background-color:#792937;">
+        <header>  
+            <nav>  
+                <ul>  
+                    <li>
+                        <h:link value="Home" outcome="index" />
+                    </li>  
+                    <li>
+                        <h:link value="Zip Search" outcome="MainPage" />
+                    </li>  
+                </ul>  
+            </nav>  
+        </header>
+        <!-- DISPLAY THE NUMBER OF TICKETS SELECTED FOR THE MOVIE AND THE SHOW TIME -->
+        <h2 style="color:white;font-family:gordita,Helvetica,sans-serif;text-align:center;font-size:300%;">
+            Purchase #{checkoutBean.numOfTickets} Tickets for #{showThingsBean.movie} at #{showThingsBean.timechosen}
+        </h2>
+        <h:graphicImage style="height:200px;width:150px;display:block;margin:0px auto;"
+                        value="/resources/images/popcorn.png" 
+                        alt="Image not found"/>
+        <br/>
+        <h3 style="color:#85bb65;font-family:gordita,Helvetica,sans-serif;text-align:center;font-size:200%;">
+            Cost: #{checkoutBean.calculateCharges()} </h3>
+        
+        <br /> <br /> <br /> <br /> <br /> <br />
+        
+        <h:form>
+            <h4 style="color:white;font-family:gordita,Helvetica,sans-serif;text-align:center;font-size:150%;">
+                Please enter credit card information below: </h4>
+            <h:panelGrid styleClass="center people" id = "panel" columns = "2" border = "1"
+                         cellpadding = "10" cellspacing = "1">
+                <h:outputLabel value = "Card Number" />
+                
+                <h:inputText value="#{checkoutBean.ccnumber}" />
+                <h:outputLabel value = "Month" />
+                <h:selectOneMenu value="#{checkoutBean.monthEntered}">
+                    <f:selectItem itemValue="1" itemLabel="1" />
+                    <f:selectItem itemValue="2" itemLabel="2" />
+                    <f:selectItem itemValue="3" itemLabel="3" />
+                    <f:selectItem itemValue="4" itemLabel="4" />
+                    <f:selectItem itemValue="5" itemLabel="5" />
+                    <f:selectItem itemValue="6" itemLabel="6" />
+                    <f:selectItem itemValue="7" itemLabel="7" />
+                    <f:selectItem itemValue="8" itemLabel="8" />
+                    <f:selectItem itemValue="9" itemLabel="9" />
+                    <f:selectItem itemValue="10" itemLabel="10" />
+                    <f:selectItem itemValue="11" itemLabel="11" />
+                    <f:selectItem itemValue="12" itemLabel="12" />
+                </h:selectOneMenu>
+                <h:outputLabel value = "Year" />
+                <h:selectOneMenu value="#{checkoutBean.yearEntered}">
+                    <f:selectItem itemValue="22" itemLabel="22" />
+                    <f:selectItem itemValue="23" itemLabel="23" />
+                    <f:selectItem itemValue="24" itemLabel="24" />
+                    <f:selectItem itemValue="25" itemLabel="25" />
+                    <f:selectItem itemValue="26" itemLabel="26" />
+                    <f:selectItem itemValue="27" itemLabel="27" />
+                </h:selectOneMenu>
+                <h:outputLabel value = "CSV" />
+                <h:inputText value="#{checkoutBean.csvEntered}" />
+                <f:facet name = "footer">
+                   <h:panelGroup style = "display:block; text-align:center">
+                       <!-- WHEN CLICKED ON, IT WILL VALIDATE IF THE USER 
+                            ENTERED IN A CREDIT CC NUMBER, IF SO IT GOES TO THE 
+                            THANK YOU PAGE-->
+                       <h:commandButton value = "Submit" 
+                                        action = "#{checkoutBean.validateInfo()}" />
+                   </h:panelGroup>
+                </f:facet>
+         </h:panelGrid>
+            <br/> <br /> <br /> <br /> <br />
+            <!-- IF THE USER DOES NOT ENTER CORRECT INFORMATION, THE ERROR
+                    MESSAGE IS DISPLAYED HERE-->
+            <h:outputText style="font-size:150%;display:block;width:100%;text-align:center;
+                               color:white;font-family:gordita,Helvetica,sans-serif;"
+                               value="#{checkoutBean.result}"/>
+        </h:form>
+    </h:body>
+</html>
+

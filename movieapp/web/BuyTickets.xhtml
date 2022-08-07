@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Select Tickets</title>
+        <style type="text/css">
+         body   
+            {  
+            height: 125vh;  
+            margin-top: 80px;  
+            padding: 30px;  
+            background-size: cover;  
+            font-family: sans-serif;  
+            }  
+            header {  
+            background-color: #24262f;  
+            position: fixed;  
+            left: 0;  
+            right: 0;  
+            top: 5px;  
+            height: 50px;  
+            display: flex;  
+            align-items: center;  
+            box-shadow: 0 0 25px 0 black;  
+            }  
+            header * {  
+            display: inline;  
+            }  
+            header li {  
+            margin: 20px;  
+            }  
+            header li a {  
+            color: white;  
+            text-decoration: none;  
+            }
+       
+            
+            .cmdbtn{
+                margin: 0px auto;
+                display: block;
+                outline: none;
+                border: 2px solid #000;
+                padding: 10px 30px;
+                border-radius: 30px;
+                background-color: #f9004d;
+                color: white;
+                box-shadow: 0px 0px 5px #000, 0px 0px 15px #858585;
+                top: 6px;
+            }
+            .cmdbtn:hover{
+                cursor: pointer;
+                border: 2px solid black;
+                background-color: transparent;
+            }
+        </style>
+    </h:head>
+    <h:body style="background-color:#792937;">
+        <header>  
+            <nav>  
+                <ul>  
+                    <li>
+                        <h:link value="Home" outcome="index" />
+                    </li>  
+                    <li>
+                        <h:link value="Zip Search" outcome="MainPage" />
+                    </li>  
+                </ul>  
+            </nav>  
+        </header>
+        <!-- SHOW THE TIME AND MOVIE SELECTED -->
+        <h2 style="color:white;font-family:gordita,Helvetica,sans-serif;text-align:center;font-size:300%;">
+            Purchase Tickets for #{showThingsBean.movie} at #{showThingsBean.timechosen}
+        </h2>
+        <h:graphicImage style="height:200px;width:150px;display:block;margin:0px auto;" 
+                        value="/resources/images/popcorn.png" 
+                        alt="Image not found"/>
+        
+        <br /> <br /> <br /> <br /> <br /> <br />
+        
+        <h:form>
+            <h2 style="color:white;font-family:gordita,Helvetica,sans-serif;text-align:center;
+                font-size:200%;">Number of Tickets to Purchase</h2>
+                <!-- DISPLAY A LIST OF NUMBERS. WHATEVER THE NUMBER IS SELECTED
+                        WILL BE SET AS HOW MANY TICKETS THE USER WISHES TO BUY-->
+                <h:selectOneMenu style="display:block;margin:0px auto;" 
+                                 value="#{checkoutBean.numOfTickets}">
+                
+                    <f:selectItem itemValue="1" itemLabel="1" />
+                    <f:selectItem itemValue="2" itemLabel="2" />
+                    <f:selectItem itemValue="3" itemLabel="3" />
+                    <f:selectItem itemValue="4" itemLabel="4" />
+                    <f:selectItem itemValue="5" itemLabel="5" />
+                    <f:selectItem itemValue="6" itemLabel="6" />
+                    <f:selectItem itemValue="7" itemLabel="7" />
+                    <f:selectItem itemValue="8" itemLabel="8" />
+                    <f:selectItem itemValue="9" itemLabel="9" />
+
+            </h:selectOneMenu>
+                
+            <br /> <br />
+            <!-- DISPLAY A SUBMIT BUTTON THAT WILL MOVE ON TO THE PAYMENT PAGE -->
+            <h:commandButton class="cmdbtn" value="Submit" action ="Payment.xhtml"/>
+        </h:form>
+    </h:body>
+</html>
+
